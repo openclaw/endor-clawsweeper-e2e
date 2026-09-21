@@ -11,7 +11,7 @@
     "node": ">=24"
   },
   "dependencies": {
-    "fast-xml-parser": "5.3.4",
+    "fast-xml-parser": "5.3.5",
     "lodash": "4.17.20"
   }
 }
