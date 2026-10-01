@@ -4,7 +4,7 @@ This public repository is a disposable integration fixture. It intentionally
 pins vulnerable direct dependencies so Endor Labs can create a remediation
 pull request and ClawSweeper can review that exact pull request.
 
-Do not deploy or reuse this package. The fixture pins `fast-xml-parser@5.3.7`,
+Do not deploy or reuse this package. The fixture pins `fast-xml-parser@5.3.6`,
 which is affected by
 [`GHSA-fj3w-jwp8-x2g3`](https://github.com/advisories/GHSA-fj3w-jwp8-x2g3)
 and is fixed in `5.3.8`. It calls `XMLBuilder` with `preserveOrder: true` and
@@ -41,16 +41,17 @@ The shallow document is a control. The regression case expects the status
 inside 102 grouping levels in a fixed, valid 1,552-byte XML document. It uses
 no DTD, entity expansion, network access, or external input.
 
-`fast-xml-parser@5.3.7` accepts that document. Version `5.3.8` introduced a
+`fast-xml-parser@5.3.6` accepts that document. Version `5.3.8` introduced a
 default nesting limit of 100, retained in `5.3.9`, so the same application call throws
 `Maximum nested tags exceeded`. This is an application compatibility failure
 caused by intentional dependency hardening, not a claim that the new parser
 is defective. See the [upstream changelog](https://github.com/NaturalIntelligence/fast-xml-parser/blob/v5.3.9/CHANGELOG.md).
 The tests assert parsed values, never a dependency version or a forced failure.
 
-This stage re-arms the existing vulnerable `5.3.7` pin. After separately
-authorizing publication, install this stage first, then let Endor propose its
-upgrade. Run `npm ci --ignore-scripts` and `npm test` on the upgrade's exact head.
+This stage uses vulnerable `5.3.6` to request a fresh upgrade: rescanning the
+previous `5.3.7` pin reused Endor's record for already-merged PR #7. Install this
+stage first, then let Endor propose its upgrade. Run `npm ci --ignore-scripts`
+and `npm test` on the upgrade's exact head.
 The **Unit dependency contract** workflow runs these two tests on the PR's exact
 head and also supports manual dispatch. It uses read-only permissions and no
 privileged secrets. It does not trigger the Endor/ClawSweeper E2E journey or
