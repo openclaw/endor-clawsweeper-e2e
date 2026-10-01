@@ -5,13 +5,14 @@
   "type": "module",
   "description": "Disposable reachable-vulnerability fixture for Endor and ClawSweeper",
   "scripts": {
-    "start": "node index.mjs"
+    "start": "node index.mjs",
+    "test": "node --test"
   },
   "engines": {
     "node": ">=24"
   },
   "dependencies": {
-    "fast-xml-parser": "5.3.9",
+    "fast-xml-parser": "5.3.7",
     "lodash": "4.17.20"
   }
 }
