@@ -20,11 +20,11 @@ produce a Lodash upgrade recommendation, so it is not the active PR trigger.
 ## Local proof
 
 ```bash
-npm ci --ignore-scripts
-npm start
-npm test
-npm ls fast-xml-parser lodash
-npm audit --omit=dev
+pnpm install --frozen-lockfile --ignore-scripts
+pnpm start
+pnpm test
+pnpm list fast-xml-parser lodash
+pnpm audit --prod
 ```
 
 The program parses and builds constant XML and renders a constant Lodash
@@ -36,7 +36,7 @@ remediation PRs are merged.
 
 ## Dependency regression stage
 
-The two `npm test` cases use the application's exported `parseDocument`.
+The two `pnpm test` cases use the application's exported `parseDocument`.
 The shallow document is a control. The regression case expects the status
 inside 102 grouping levels in a fixed, valid 1,552-byte XML document. It uses
 no DTD, entity expansion, network access, or external input.
@@ -50,8 +50,8 @@ The tests assert parsed values, never a dependency version or a forced failure.
 
 This stage uses vulnerable `5.3.6` to request a fresh upgrade: rescanning the
 previous `5.3.7` pin reused Endor's record for already-merged PR #7. Install this
-stage first, then let Endor propose its upgrade. Run `npm ci --ignore-scripts`
-and `npm test` on the upgrade's exact head.
+stage first, then let Endor propose its upgrade. Run `pnpm install --frozen-lockfile --ignore-scripts`
+and `pnpm test` on the upgrade's exact head.
 The **Unit dependency contract** workflow runs these two tests on the PR's exact
 head and also supports manual dispatch. It uses read-only permissions and no
 privileged secrets. It does not trigger the Endor/ClawSweeper E2E journey or
